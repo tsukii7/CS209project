@@ -17,6 +17,12 @@ public class Issue {
     public Issue() {
     }
 
+//    public Issue(String state, long duration) {
+//        this.state = state;
+//        this.duration = duration;
+//    }
+
+
     public Issue(String state, long duration) {
         this.state = state;
         this.duration = duration;

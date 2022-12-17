@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.Issue;
 import com.example.demo.repository.IssueRepository;
+import com.example.demo.util.GithubRestfulUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,15 @@ public class IssueService {
     public IssueService(IssueRepository issueRepository) {
         this.issueRepository = issueRepository;
     }
-    
+
     public List<Issue> getIssues() {
         return issueRepository.findAll();
     }
 
-    public void addIssues(List<String> states, List<Long> durations) {
+    public void addIssues() {
+        List<String> states = new ArrayList<>();
+        List<Long> durations = new ArrayList<>();
+        GithubRestfulUtil.getIssues(states, durations);
         List<Issue> issues = new ArrayList<>();
         for (int i = 0; i < states.size(); i++) {
             issues.add(new Issue(states.get(i), durations.get(i)));
