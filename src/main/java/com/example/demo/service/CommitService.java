@@ -17,18 +17,18 @@ public class CommitService {
     public CommitService(CommitRepository commitRepository) {
         this.commitRepository = commitRepository;
     }
-    
-    public List<Commit> getCommits(){
+
+    public List<Commit> getCommits() {
         return commitRepository.findAll();
     }
-    
-    public void addCommits(){
-        List<String> commitTimes = new ArrayList<>();
+
+    public void addCommits() {
         List<String> accounts = new ArrayList<>();
-        GithubRestfulUtil.getCommits(commitTimes,accounts);
+        List<String> commitTimes = new ArrayList<>();
+        GithubRestfulUtil.getCommits(accounts, commitTimes);
         List<Commit> commits = new ArrayList<>();
         for (int i = 0; i < commitTimes.size(); i++) {
-            commits.add(new Commit(commitTimes.get(i),accounts.get(i)));
+            commits.add(new Commit(commitTimes.get(i), accounts.get(i)));
         }
         commitRepository.saveAll(commits);
     }

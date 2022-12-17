@@ -14,10 +14,11 @@ public class DeveloperController {
     }
 
     @RequestMapping("/list/developer")
-    public String getDevelopers(Model model){
-        model.addAttribute("developers",developerService.getDevelopers());
+    public String getDevelopers(Model model) {
+        model.addAttribute("developers", developerService.findAll());
+        model.addAttribute("count", developerService.count());
         return "index";
     }
-    
-    
+
+
 }

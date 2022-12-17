@@ -25,11 +25,18 @@ public class IssueService {
     public void addIssues() {
         List<String> states = new ArrayList<>();
         List<Long> durations = new ArrayList<>();
-        GithubRestfulUtil.getIssues(states, durations);
+        List<String> titles = new ArrayList<>();
+        List<String> descriptions = new ArrayList<>();
+        GithubRestfulUtil.getIssues(states, durations, titles, descriptions);
         List<Issue> issues = new ArrayList<>();
         for (int i = 0; i < states.size(); i++) {
+//            issues.add(new Issue(states.get(i), durations.get(i), titles.get(i), descriptions.get(i)));
             issues.add(new Issue(states.get(i), durations.get(i)));
         }
         issueRepository.saveAll(issues);
+    }
+    
+    public long countByState(String state){
+        return issueRepository.countByState(state);
     }
 }

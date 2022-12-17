@@ -15,7 +15,8 @@ public class IssueController {
     
     @RequestMapping("/list/issue")
     public String getIssues(Model model){
-        model.addAttribute("issues",issueService.getIssues());
+        model.addAttribute("open",issueService.countByState("open"));
+        model.addAttribute("close",issueService.countByState("close"));
         return "index";
     }
 }

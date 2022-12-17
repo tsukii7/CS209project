@@ -18,9 +18,6 @@ public class DeveloperService {
         this.developerRepository = developerRepository;
     }
 
-    public List<Developer> getDevelopers(){
-        return developerRepository.findAll();
-    }
     
     public void addDevelopers(){
         List<String> accountList = new ArrayList<>();
@@ -31,5 +28,17 @@ public class DeveloperService {
             developers.add(new Developer(accountList.get(i), contributionsList.get(i)));
         }
         developerRepository.saveAll(developers);
+    }
+    
+    public long count(){
+        return developerRepository.count();
+    }
+    
+    public List<Developer> findAll(){
+        return developerRepository.findAll();
+    }
+    
+    public List<Developer> findTop5OrderByContributionsDesc(){
+        return developerRepository.findTop5ByOrderByContributionsDesc();
     }
 }

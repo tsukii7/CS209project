@@ -7,11 +7,9 @@
 <body>
 <h1>Index</h1>
 <table>
-    <tr th:each="developer: ${developers}">
-        <td th:text="${developer.id}">ID</td>
-        <td th:text="${developer.account}">Account</td>
-        <td th:text="${developer.contributions}">Contributions</td>
-    </tr>
+    <tr th:text="${open}"></tr>
+    <tr th:text="${close}"></tr>
+    
 </table>
 </body>
 </html>
