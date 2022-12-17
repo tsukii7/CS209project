@@ -46,6 +46,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+				<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20201115</version>
+		</dependency>
+
 <!--		&lt;!&ndash;  2.5 .x的最后一个版本 &ndash;&gt;-->
 <!--		&lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-maven-plugin &ndash;&gt;-->
 <!--		<dependency>-->
