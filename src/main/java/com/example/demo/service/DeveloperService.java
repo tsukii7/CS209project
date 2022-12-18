@@ -33,12 +33,12 @@ public class DeveloperService {
     public long count(){
         return developerRepository.count();
     }
+
+    public List<Developer> findTop5OrderByContributionsDesc(){
+        return developerRepository.findTop5ByOrderByContributionsDesc();
+    }
     
     public List<Developer> findAll(){
         return developerRepository.findAll();
-    }
-    
-    public List<Developer> findTop5OrderByContributionsDesc(){
-        return developerRepository.findTop5ByOrderByContributionsDesc();
     }
 }

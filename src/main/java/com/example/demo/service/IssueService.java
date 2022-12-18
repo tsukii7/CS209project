@@ -36,7 +36,11 @@ public class IssueService {
         issueRepository.saveAll(issues);
     }
     
-    public long countByState(String state){
-        return issueRepository.countByState(state);
+    public long countOpenStates(){
+        return issueRepository.countByState("open");
+    }
+    
+    public long countCloseStates(){
+        return issueRepository.countByState("close");
     }
 }

@@ -3,9 +3,12 @@ package com.example.demo.controller;
 import com.example.demo.service.IssueService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("/api/openai/issues")
 public class IssueController {
     private final IssueService issueService;
 
@@ -13,10 +16,13 @@ public class IssueController {
         this.issueService = issueService;
     }
     
-    @RequestMapping("/list/issue")
-    public String getIssues(Model model){
-        model.addAttribute("open",issueService.countByState("open"));
-        model.addAttribute("close",issueService.countByState("close"));
-        return "index";
+    @GetMapping("/open/count")
+    public long getOpenCount(){
+        return issueService.countOpenStates();
+    }
+    
+    @GetMapping("/close/count")
+    public long getCloseCount(){
+        return issueService.countCloseStates();
     }
 }
