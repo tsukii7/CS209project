@@ -25,9 +25,9 @@ public class Cs209projectDemoApplication {
     ) {
         return args -> {
             developerService.addDevelopers();
-            issueService.addIssues();
-            commitService.addCommits();
-            releaseService.addReleases();
+//            issueService.addIssues();
+//            commitService.addCommits();
+//            releaseService.addReleases();
         };
     }
 

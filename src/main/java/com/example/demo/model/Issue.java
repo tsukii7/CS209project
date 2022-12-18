@@ -22,12 +22,6 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(String repoName,String state, long duration) {
-        this.repoName = repoName;
-        this.state = state;
-        this.duration = duration;
-    }
-
     public Issue(String repoName,String state, long duration, String title, String description) {
         this.repoName = repoName;
         this.state = state;

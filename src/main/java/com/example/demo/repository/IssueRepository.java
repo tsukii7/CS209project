@@ -4,5 +4,5 @@ import com.example.demo.model.Issue;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IssueRepository extends JpaRepository<Issue,Long> {
-    long countByState(String state);
+    long countByRepoNameAndState(String repoName, String state);
 }

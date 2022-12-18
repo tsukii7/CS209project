@@ -27,4 +27,25 @@ public class Developer {
         this.avatar = avatar;
         this.homepage = homepage;
     }
+
+    public String getRepoName() {
+        return repoName;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public int getContributions() {
+        return contributions;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
 }

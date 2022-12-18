@@ -4,6 +4,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/openai/releases")
+@RequestMapping("/api/releases")
 public class ReleaseController {
 }

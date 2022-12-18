@@ -4,12 +4,13 @@ import com.example.demo.model.Developer;
 import com.example.demo.service.DeveloperService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/openai/developers")
+@RequestMapping("/api/developers")
 public class DeveloperController {
     private final DeveloperService developerService;
 
@@ -18,13 +19,13 @@ public class DeveloperController {
     }
 
     @GetMapping("/count")
-    public long count(){
-        return developerService.count();
+    public long count(@RequestParam String repoName){
+        return developerService.countByRepoName(repoName);
     }
     
     @GetMapping("/top")
-    public List<Developer> getTop5(){
-        return developerService.findTop5OrderByContributionsDesc();
+    public List<Developer> getTop5(@RequestParam String repoName){
+        return developerService.findTop5ByRepoNameOrderByContributionsDesc(repoName);
     }
     
     @GetMapping("/all")

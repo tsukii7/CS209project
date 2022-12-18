@@ -25,10 +25,8 @@ public class Commit {
     public Commit() {
     }
 
-
-
-    public Long getId() {
-        return id;
+    public String getRepoName() {
+        return repoName;
     }
 
     public String getCommitTime() {
@@ -38,4 +36,6 @@ public class Commit {
     public String getAccount() {
         return account;
     }
+    
+    
 }

@@ -18,7 +18,7 @@ public class IssueService {
         this.issueRepository = issueRepository;
     }
 
-    public List<Issue> getIssues() {
+    public List<Issue> findAll() {
         return issueRepository.findAll();
     }
 
@@ -36,12 +36,8 @@ public class IssueService {
         }
         issueRepository.saveAll(issues);
     }
-    
-    public long countOpenStates(){
-        return issueRepository.countByState("open");
-    }
-    
-    public long countCloseStates(){
-        return issueRepository.countByState("close");
+
+    public long countByRepoNameAndState(String repoName, String state) {
+        return issueRepository.countByRepoNameAndState(repoName, state);
     }
 }

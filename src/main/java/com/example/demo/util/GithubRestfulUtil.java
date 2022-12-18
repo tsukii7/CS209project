@@ -93,10 +93,14 @@ public class GithubRestfulUtil {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject obj = (JSONObject) jsonArray.get(i);
+                    if (obj.get("body").toString().equals("null")) {
+                        continue;
+                    }
                     repoNametList.add(repoName);
                     String state = (String) obj.get("state");
                     stateList.add(state);
                     titleList.add((String) obj.get("title"));
+
                     StringBuilder description = new StringBuilder((String) obj.get("body"));
                     String comments_url = (String) obj.get("comments_url");
                     String comments = getStringFromURL(new URL(comments_url + "?per_page=100"));
@@ -107,17 +111,17 @@ public class GithubRestfulUtil {
                         description.append(comment.get("body"));
                     }
                     // process the "body" of comments and issues
-                    String descrip =  description.toString();
+                    String descrip = description.toString();
                     String[] descriptionArray = descrip.split("```");
                     StringBuilder text = new StringBuilder();
                     for (int k = 0; k < descriptionArray.length; k++) {
                         if (k % 2 == 0) {
                             String[] words = descriptionArray[k].split("`");
                             for (int j = 0; j < words.length; j++) {
-                                if (j % 2 == 0){
+                                if (j % 2 == 0) {
                                     String[] lines = words[j].split("\n");
                                     for (String l : lines) {
-                                        if (!l.contains("](")){
+                                        if (!l.contains("](")) {
                                             text.append(l);
                                         }
                                     }
@@ -135,7 +139,6 @@ public class GithubRestfulUtil {
                         durationList.add(closeDate.getTime() / 1000 - stateDate.getTime() / 1000);
                     }
                 }
-                break;
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
@@ -229,15 +232,15 @@ public class GithubRestfulUtil {
         conn.setRequestMethod("GET"); // POST GET PUT DELETE
         conn.setRequestProperty("Authorization", "token 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");
         conn.setRequestProperty("Accept", " application/vnd.github+json");
-        FileInputStream f;
-        if ((restURL + "").contains("comments")) {
-            f = new FileInputStream("C:\\Users\\Ksco\\OneDrive\\桌面\\comments.txt");
-
-        } else {
-            f = new FileInputStream("C:\\Users\\Ksco\\OneDrive\\桌面\\contributors.txt");
-        }
-//        Scanner sc = new Scanner(new InputStreamReader(conn.getInputStream()));
-        Scanner sc = new Scanner(f);
+//        FileInputStream f;
+//        if ((restURL + "").contains("comments")) {
+//            f = new FileInputStream("C:\\Users\\Ksco\\OneDrive\\桌面\\comments.txt");
+//
+//        } else {
+//            f = new FileInputStream("C:\\Users\\Ksco\\OneDrive\\桌面\\contributors.txt");
+//        }
+        Scanner sc = new Scanner(new InputStreamReader(conn.getInputStream()));
+//        Scanner sc = new Scanner(f);
         StringBuilder sb = new StringBuilder();
         while (sc.hasNextLine()) {
             line = sc.nextLine();

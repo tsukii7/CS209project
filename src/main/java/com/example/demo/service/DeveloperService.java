@@ -31,18 +31,18 @@ public class DeveloperService {
             developers.add(new Developer(
                     repoNames.get(i),
                     accountList.get(i),
-                    contributionsList.get(i), 
+                    contributionsList.get(i),
                     avatarList.get(i), homepageList.get(i)));
         }
         developerRepository.saveAll(developers);
     }
 
-    public long count() {
-        return developerRepository.count();
+    public long countByRepoName(String repoName) {
+        return developerRepository.countByRepoName(repoName);
     }
 
-    public List<Developer> findTop5OrderByContributionsDesc() {
-        return developerRepository.findTop5ByOrderByContributionsDesc();
+    public List<Developer> findTop5ByRepoNameOrderByContributionsDesc(String repoName) {
+        return developerRepository.findTop5ByRepoNameOrderByContributionsDesc(repoName);
     }
 
     public List<Developer> findAll() {
