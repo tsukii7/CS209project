@@ -11,18 +11,20 @@ public class Developer {
     @Id
     @GeneratedValue
     private Long id;
+    private String repoName;
     private String account;
     private int contributions;
-    private String image;
+    private String avatar;
     private String homepage;
 
     public Developer() {
     }
 
-    public Developer(String account, int contributions, String image, String homepage) {
+    public Developer(String repoName,String account, int contributions, String avatar, String homepage) {
+        this.repoName = repoName;
         this.account = account;
         this.contributions = contributions;
-        this.image = image;
+        this.avatar = avatar;
         this.homepage = homepage;
     }
 }

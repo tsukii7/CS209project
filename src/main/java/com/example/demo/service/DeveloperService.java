@@ -20,17 +20,19 @@ public class DeveloperService {
 
 
     public void addDevelopers() {
+        List<String> repoNames = new ArrayList<>();
         List<String> accountList = new ArrayList<>();
         List<Integer> contributionsList = new ArrayList<>();
-        List<String> images = new ArrayList<>();
-        List<String> homepages = new ArrayList<>();
-        GithubRestfulUtil.getDevelopers(accountList, contributionsList, images, homepages);
+        List<String> avatarList = new ArrayList<>();
+        List<String> homepageList = new ArrayList<>();
+        GithubRestfulUtil.getDevelopers(repoNames, accountList, contributionsList, avatarList, homepageList);
         List<Developer> developers = new ArrayList<>();
         for (int i = 0; i < accountList.size(); i++) {
             developers.add(new Developer(
+                    repoNames.get(i),
                     accountList.get(i),
                     contributionsList.get(i), 
-                    images.get(i), homepages.get(i)));
+                    avatarList.get(i), homepageList.get(i)));
         }
         developerRepository.saveAll(developers);
     }

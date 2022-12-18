@@ -11,13 +11,15 @@ public class Release {
     @Id
     @GeneratedValue
     private Long id;
+    private String repoName;
     private String version;
     private String releaseTime;
 
     public Release() {
     }
 
-    public Release(String version, String releaseTime) {
+    public Release(String repoName,String version, String releaseTime) {
+        this.repoName = repoName;
         this.version = version;
         this.releaseTime = releaseTime;
     }

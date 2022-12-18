@@ -3,41 +3,68 @@ package com.example.demo.util;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class GithubRestfulUtil {
 
+    public static void main(String[] args) {
+        ArrayList<String> repoNametList = new ArrayList<>();
+        ArrayList<String> accountList = new ArrayList<>();
+        ArrayList<Integer> contributionsList = new ArrayList<>();
+        ArrayList<String> avatarList = new ArrayList<>();
+        ArrayList<String> homepageList = new ArrayList<>();
+        getDevelopers(
+                repoNametList,
+                accountList,
+                contributionsList,
+                avatarList,
+                homepageList);
+        for (int i = 0; i < repoNametList.size(); i++) {
+            System.out.println(repoNametList.get(i) + "   " + accountList.get(i) + "   " + contributionsList.get(i) + "   " + avatarList.get(i) + "   " + homepageList.get(i));
+        }
+    }
+
     //get
     public static void getDevelopers(
-            List<String> accountList, 
+            List<String> repoNametList,
+            List<String> accountList,
             List<Integer> contributionsList,
-            List<String> images,
-            List<String> homepages
+            List<String> avatarList,
+            List<String> homepageList
     ) {
-        String line = "";
-        String url = "https://api.github.com/repos/openai/gym/contributors?per_page=100&page=";
+        getDevelopersByRepo(repoNametList, accountList, contributionsList, avatarList, homepageList, "openai/gym");
+        getDevelopersByRepo(repoNametList, accountList, contributionsList, avatarList, homepageList, "babysor/MockingBird");
+    }
+
+    private static void getDevelopersByRepo(List<String> repoNametList, List<String> accountList, List<Integer> contributionsList, List<String> avatarList, List<String> homepageList, String repoName) {
+        String url = "https://api.github.com/repos/" + repoName + "/contributors?per_page=100&page=";
         int index = 1;
         while (true) {
             try {
                 URL restURL = new URL(url + index);
                 index++;
                 String s = getStringFromURL(restURL);
-//            System.out.println(sb);
                 if (s.equals("[]")) {
                     break;
                 }
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    accountList.add((String) ((JSONObject) jsonArray.get(i)).get("login"));
-                    contributionsList.add((Integer) ((JSONObject) jsonArray.get(i)).get("contributions"));
+                    JSONObject obj = (JSONObject) jsonArray.get(i);
+                    repoNametList.add(repoName);
+                    accountList.add((String) obj.get("login"));
+                    contributionsList.add((Integer) obj.get("contributions"));
+                    avatarList.add((String) obj.get("avatar_url"));
+                    homepageList.add((String) obj.get("html_url"));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -47,9 +74,13 @@ public class GithubRestfulUtil {
 
     ;
 
-    public static void getIssues(List<String> stateList, List<Long> durationList, List<String> titles, List<String> descriptions) {
-        String line = "";
-        String url = "https://api.github.com/repos/openai/gym/issues?per_page=100&state=all&page=";
+    public static void getIssues(List<String> repoNametList, List<String> stateList, List<Long> durationList, List<String> titleList, List<String> descriptionList) {
+        getIssuesByRepo(repoNametList, stateList, durationList, titleList, descriptionList, "openai/gym");
+        getIssuesByRepo(repoNametList, stateList, durationList, titleList, descriptionList, "babysor/MockingBird");
+    }
+
+    private static void getIssuesByRepo(List<String> repoNametList, List<String> stateList, List<Long> durationList, List<String> titleList, List<String> descriptionList, String repoName) {
+        String url = "https://api.github.com/repos/" + repoName + "/issues?per_page=100&state=all&page=";
         int index = 1;
         while (true) {
             try {
@@ -61,14 +92,19 @@ public class GithubRestfulUtil {
                 }
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    String state = (String) ((JSONObject) jsonArray.get(i)).get("state");
+                    JSONObject obj = (JSONObject) jsonArray.get(i);
+                    repoNametList.add(repoName);
+                    String state = (String) obj.get("state");
                     stateList.add(state);
+                    titleList.add((String) obj.get("title"));
+//                    String body = (String) obj.get("body");
+//                    descriptionList.add(body);
                     if (state.equals("open")) {
                         durationList.add(-1L);
                     } else {
                         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                        Date stateDate = format.parse((String) ((JSONObject) jsonArray.get(i)).get("created_at"));
-                        Date closeDate = format.parse((String) ((JSONObject) jsonArray.get(i)).get("closed_at"));
+                        Date stateDate = format.parse((String) obj.get("created_at"));
+                        Date closeDate = format.parse((String) obj.get("closed_at"));
                         durationList.add(closeDate.getTime() / 1000 - stateDate.getTime() / 1000);
                     }
                 }
@@ -76,12 +112,15 @@ public class GithubRestfulUtil {
                 e.printStackTrace();
             }
         }
-
     }
 
-    public static void getCommits(List<String> accountList, List<String> commitTimeList) {
-        String line = "";
-        String url = "https://api.github.com/repos/openai/gym/commits?per_page=100&page=";
+    public static void getCommits(List<String> repoNametList, List<String> accountList, List<String> commitTimeList) {
+        getCommitsByRepo(repoNametList, accountList, commitTimeList, "openai/gym");
+        getCommitsByRepo(repoNametList, accountList, commitTimeList, "babysor/MockingBird");
+    }
+
+    private static void getCommitsByRepo(List<String> repoNametList, List<String> accountList, List<String> commitTimeList, String repoName) {
+        String url = "https://api.github.com/repos/" + repoName + "/commits?per_page=100&page=";
         int index = 1;
         while (true) {
             try {
@@ -94,12 +133,14 @@ public class GithubRestfulUtil {
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     String account = "";
-                    if (((JSONObject) jsonArray.get(i)).get("author").toString().equals("null")) {
+                    JSONObject obj = (JSONObject) jsonArray.get(i);
+                    repoNametList.add(repoName);
+                    if (obj.get("author").toString().equals("null")) {
                         account = "null";
                     } else {
-                        account = (String) ((JSONObject) ((JSONObject) jsonArray.get(i)).get("author")).get("login");
+                        account = (String) ((JSONObject) obj.get("author")).get("login");
                     }
-                    JSONObject commit = (JSONObject) ((JSONObject) jsonArray.get(i)).get("commit");
+                    JSONObject commit = (JSONObject) obj.get("commit");
                     JSONObject committer = (JSONObject) commit.get("committer");
                     String nickname = (String) committer.get("name");
                     if (account.equals("null")) {
@@ -111,7 +152,6 @@ public class GithubRestfulUtil {
                     accountList.add(account);
                     commitTimeList.add(format2.format(commitDate));
                 }
-//                break;
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
@@ -119,9 +159,13 @@ public class GithubRestfulUtil {
     }
 
 
-    public static void getReleases(List<String> versionList, List<String> releaseTimeList) {
-        String line = "";
-        String url = "https://api.github.com/repos/openai/gym/releases?per_page=100&page=";
+    public static void getReleases(List<String> repoNametList, List<String> versionList, List<String> releaseTimeList) {
+        getReleasesByRepo(repoNametList, versionList, releaseTimeList, "openai/gym");
+        getReleasesByRepo(repoNametList, versionList, releaseTimeList, "babysor/MockingBird");
+    }
+
+    private static void getReleasesByRepo(List<String> repoNametList, List<String> versionList, List<String> releaseTimeList, String repoName) {
+        String url = "https://api.github.com/repos/" + repoName + "/releases?per_page=100&page=";
         int index = 1;
         while (true) {
             try {
@@ -133,13 +177,15 @@ public class GithubRestfulUtil {
                 }
                 JSONArray jsonArray = new JSONArray(s);
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    String tag = (String) ((JSONObject) jsonArray.get(i)).get("tag_name");
-                    if (!tag.startsWith("v")){
-                        tag = "v"+tag;
+                    JSONObject obj = (JSONObject) jsonArray.get(i);
+                    repoNametList.add(repoName);
+                    String tag = (String) obj.get("tag_name");
+                    if (!tag.startsWith("v")) {
+                        tag = "v" + tag;
                     }
                     versionList.add(tag);
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-                    Date publishDate = format.parse((String) ((JSONObject) jsonArray.get(i)).get("published_at"));
+                    Date publishDate = format.parse((String) obj.get("published_at"));
                     SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
                     releaseTimeList.add(format2.format(publishDate));
                 }

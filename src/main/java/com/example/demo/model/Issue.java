@@ -13,6 +13,7 @@ public class Issue {
     @Id
     @GeneratedValue
     private Long id;
+    private String repoName;
     private String state;
     private long duration;
     private String title;
@@ -21,12 +22,14 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(String state, long duration) {
+    public Issue(String repoName,String state, long duration) {
+        this.repoName = repoName;
         this.state = state;
         this.duration = duration;
     }
 
-    public Issue(String state, long duration, String title, String description) {
+    public Issue(String repoName,String state, long duration, String title, String description) {
+        this.repoName = repoName;
         this.state = state;
         this.duration = duration;
         this.title = title;

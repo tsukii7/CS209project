@@ -23,12 +23,13 @@ public class ReleaseService {
     }
     
     public void addReleases(){
+        List<String> repoNames = new ArrayList<>();
         List<String> versions = new ArrayList<>();
         List<String> releaseTimes = new ArrayList<>();
-        GithubRestfulUtil.getReleases(versions,releaseTimes);
+        GithubRestfulUtil.getReleases(repoNames, versions,releaseTimes);
         List<Release> releases = new ArrayList<>();
         for (int i = 0; i < versions.size(); i++) {
-            releases.add(new Release(versions.get(i), releaseTimes.get(i)));
+            releases.add(new Release(repoNames.get(i), versions.get(i), releaseTimes.get(i)));
         }
         releaseRepository.saveAll(releases);
     }

@@ -23,12 +23,13 @@ public class CommitService {
     }
 
     public void addCommits() {
+        List<String> repoNames = new ArrayList<>();
         List<String> accounts = new ArrayList<>();
         List<String> commitTimes = new ArrayList<>();
-        GithubRestfulUtil.getCommits(accounts, commitTimes);
+        GithubRestfulUtil.getCommits(repoNames, accounts, commitTimes);
         List<Commit> commits = new ArrayList<>();
         for (int i = 0; i < commitTimes.size(); i++) {
-            commits.add(new Commit(commitTimes.get(i), accounts.get(i)));
+            commits.add(new Commit(repoNames.get(i), commitTimes.get(i), accounts.get(i)));
         }
         commitRepository.saveAll(commits);
     }

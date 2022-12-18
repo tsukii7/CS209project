@@ -11,16 +11,21 @@ public class Commit {
     @Id
     @GeneratedValue
     private Long id;
+    private String repoName;
     private String commitTime;
+
+    public Commit(String repoName, String commitTime, String account) {
+        this.repoName = repoName;
+        this.commitTime = commitTime;
+        this.account = account;
+    }
+
     private String account;
 
     public Commit() {
     }
 
-    public Commit(String commitTime, String account) {
-        this.commitTime = commitTime;
-        this.account = account;
-    }
+
 
     public Long getId() {
         return id;
