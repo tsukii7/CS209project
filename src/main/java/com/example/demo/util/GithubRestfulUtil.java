@@ -20,17 +20,17 @@ public class GithubRestfulUtil {
     public static void main(String[] args) {
         ArrayList<String> repoNametList = new ArrayList<>();
         ArrayList<String> accountList = new ArrayList<>();
-        ArrayList<Integer> contributionsList = new ArrayList<>();
+        ArrayList<Long> contributionsList = new ArrayList<>();
         ArrayList<String> avatarList = new ArrayList<>();
         ArrayList<String> homepageList = new ArrayList<>();
-        getDevelopers(
+        getIssues(
                 repoNametList,
                 accountList,
                 contributionsList,
                 avatarList,
                 homepageList);
         for (int i = 0; i < repoNametList.size(); i++) {
-            System.out.println(repoNametList.get(i) + "   " + accountList.get(i) + "   " + contributionsList.get(i) + "   " + avatarList.get(i) + "   " + homepageList.get(i));
+//            System.out.println(repoNametList.get(i) + "   " + accountList.get(i) + "   " + contributionsList.get(i) + "   " + avatarList.get(i) + "   " + homepageList.get(i));
         }
     }
 
@@ -97,8 +97,35 @@ public class GithubRestfulUtil {
                     String state = (String) obj.get("state");
                     stateList.add(state);
                     titleList.add((String) obj.get("title"));
-//                    String body = (String) obj.get("body");
-//                    descriptionList.add(body);
+                    StringBuilder description = new StringBuilder((String) obj.get("body"));
+                    String comments_url = (String) obj.get("comments_url");
+                    String comments = getStringFromURL(new URL(comments_url + "?per_page=100"));
+                    // get comments of the issue
+                    JSONArray commentArray = new JSONArray(comments);
+                    for (int j = 0; j < commentArray.length(); j++) {
+                        JSONObject comment = (JSONObject) commentArray.get(j);
+                        description.append(comment.get("body"));
+                    }
+                    // process the "body" of comments and issues
+                    String descrip =  description.toString();
+                    String[] descriptionArray = descrip.split("```");
+                    StringBuilder text = new StringBuilder();
+                    for (int k = 0; k < descriptionArray.length; k++) {
+                        if (k % 2 == 0) {
+                            String[] words = descriptionArray[k].split("`");
+                            for (int j = 0; j < words.length; j++) {
+                                if (j % 2 == 0){
+                                    String[] lines = words[j].split("\n");
+                                    for (String l : lines) {
+                                        if (!l.contains("](")){
+                                            text.append(l);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    descriptionList.add(text.toString());
                     if (state.equals("open")) {
                         durationList.add(-1L);
                     } else {
@@ -108,6 +135,7 @@ public class GithubRestfulUtil {
                         durationList.add(closeDate.getTime() / 1000 - stateDate.getTime() / 1000);
                     }
                 }
+                break;
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
             }
@@ -201,9 +229,15 @@ public class GithubRestfulUtil {
         conn.setRequestMethod("GET"); // POST GET PUT DELETE
         conn.setRequestProperty("Authorization", "token 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");
         conn.setRequestProperty("Accept", " application/vnd.github+json");
-//        FileInputStream f = new FileInputStream("C:\\Users\\Ksco\\OneDrive\\桌面\\contributors.txt");
-        Scanner sc = new Scanner(new InputStreamReader(conn.getInputStream()));
-//        Scanner sc = new Scanner(f);
+        FileInputStream f;
+        if ((restURL + "").contains("comments")) {
+            f = new FileInputStream("C:\\Users\\Ksco\\OneDrive\\桌面\\comments.txt");
+
+        } else {
+            f = new FileInputStream("C:\\Users\\Ksco\\OneDrive\\桌面\\contributors.txt");
+        }
+//        Scanner sc = new Scanner(new InputStreamReader(conn.getInputStream()));
+        Scanner sc = new Scanner(f);
         StringBuilder sb = new StringBuilder();
         while (sc.hasNextLine()) {
             line = sc.nextLine();
