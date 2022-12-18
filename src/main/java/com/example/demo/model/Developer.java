@@ -13,24 +13,16 @@ public class Developer {
     private Long id;
     private String account;
     private int contributions;
+    private String image;
+    private String homepage;
 
     public Developer() {
     }
-    public Developer(String account, int contributions) {
+
+    public Developer(String account, int contributions, String image, String homepage) {
         this.account = account;
         this.contributions = contributions;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getAccount() {
-        return account;
-    }
-
-    public int getContributions() {
-        return contributions;
+        this.image = image;
+        this.homepage = homepage;
     }
 }

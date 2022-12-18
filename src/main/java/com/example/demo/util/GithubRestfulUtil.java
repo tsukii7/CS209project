@@ -16,7 +16,12 @@ import java.util.Scanner;
 public class GithubRestfulUtil {
 
     //get
-    public static void getDevelopers(List<String> accountList, List<Integer> contributionsList) {
+    public static void getDevelopers(
+            List<String> accountList, 
+            List<Integer> contributionsList,
+            List<String> images,
+            List<String> homepages
+    ) {
         String line = "";
         String url = "https://api.github.com/repos/openai/gym/contributors?per_page=100&page=";
         int index = 1;

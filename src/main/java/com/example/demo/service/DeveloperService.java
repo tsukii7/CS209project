@@ -18,27 +18,32 @@ public class DeveloperService {
         this.developerRepository = developerRepository;
     }
 
-    
-    public void addDevelopers(){
+
+    public void addDevelopers() {
         List<String> accountList = new ArrayList<>();
         List<Integer> contributionsList = new ArrayList<>();
-        GithubRestfulUtil.getDevelopers(accountList,contributionsList);
+        List<String> images = new ArrayList<>();
+        List<String> homepages = new ArrayList<>();
+        GithubRestfulUtil.getDevelopers(accountList, contributionsList, images, homepages);
         List<Developer> developers = new ArrayList<>();
         for (int i = 0; i < accountList.size(); i++) {
-            developers.add(new Developer(accountList.get(i), contributionsList.get(i)));
+            developers.add(new Developer(
+                    accountList.get(i),
+                    contributionsList.get(i), 
+                    images.get(i), homepages.get(i)));
         }
         developerRepository.saveAll(developers);
     }
-    
-    public long count(){
+
+    public long count() {
         return developerRepository.count();
     }
 
-    public List<Developer> findTop5OrderByContributionsDesc(){
+    public List<Developer> findTop5OrderByContributionsDesc() {
         return developerRepository.findTop5ByOrderByContributionsDesc();
     }
-    
-    public List<Developer> findAll(){
+
+    public List<Developer> findAll() {
         return developerRepository.findAll();
     }
 }
