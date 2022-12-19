@@ -2,14 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.model.Developer;
 import com.example.demo.service.DeveloperService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/developers")
 public class DeveloperController {
     private final DeveloperService developerService;
@@ -25,12 +23,12 @@ public class DeveloperController {
     
     @GetMapping("/top")
     public List<Developer> getTop5(@RequestParam String repoName){
-        return developerService.findTop5ByRepoNameOrderByContributionsDesc(repoName);
+        return developerService.getTop5(repoName);
     }
     
     @GetMapping("/all")
-    public List<Developer> getAll(){
-        return developerService.findAll();
+    public List<Developer> getAll(@RequestParam String repoName){
+        return developerService.getAll(repoName);
     }
 
 

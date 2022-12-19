@@ -32,7 +32,12 @@ public class IssueService {
         List<Issue> issues = new ArrayList<>();
         for (int i = 0; i < states.size(); i++) {
 //            issues.add(new Issue(states.get(i), durations.get(i), titles.get(i), descriptions.get(i)));
-            issues.add(new Issue(repoNames.get(i), states.get(i), durations.get(i)));
+            issues.add(new Issue(
+                    repoNames.get(i), 
+                    states.get(i), 
+                    durations.get(i),
+                    titles.get(i),
+                    descriptions.get(i)));
         }
         issueRepository.saveAll(issues);
     }

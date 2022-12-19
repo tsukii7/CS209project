@@ -33,4 +33,8 @@ public class ReleaseService {
         }
         releaseRepository.saveAll(releases);
     }
+    
+    public List<Release> getByRepoName(String repoName) {
+        return releaseRepository.findByRepoName(repoName);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.util;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.FileInputStream;
@@ -166,10 +167,10 @@ public class GithubRestfulUtil {
                     String account = "";
                     JSONObject obj = (JSONObject) jsonArray.get(i);
                     repoNametList.add(repoName);
-                    if (obj.get("author").toString().equals("null")) {
-                        account = "null";
-                    } else {
+                    if (obj.has("author") && !obj.get("author").toString().equals("null") && ((JSONObject)obj.get("author")).has("login")) {
                         account = (String) ((JSONObject) obj.get("author")).get("login");
+                    } else {
+                        account = "null";
                     }
                     JSONObject commit = (JSONObject) obj.get("commit");
                     JSONObject committer = (JSONObject) commit.get("committer");
@@ -185,6 +186,8 @@ public class GithubRestfulUtil {
                 }
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
+            }catch (JSONException e){
+                
             }
         }
     }

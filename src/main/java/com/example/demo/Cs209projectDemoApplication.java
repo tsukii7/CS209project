@@ -24,11 +24,10 @@ public class Cs209projectDemoApplication {
             ReleaseService releaseService
     ) {
         return args -> {
-            developerService.addDevelopers();
+//            developerService.addDevelopers();
 //            issueService.addIssues();
-//            commitService.addCommits();
-//            releaseService.addReleases();
+            commitService.addCommits();
+            releaseService.addReleases();
         };
     }
-
 }

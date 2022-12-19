@@ -41,11 +41,11 @@ public class DeveloperService {
         return developerRepository.countByRepoName(repoName);
     }
 
-    public List<Developer> findTop5ByRepoNameOrderByContributionsDesc(String repoName) {
+    public List<Developer> getTop5(String repoName) {
         return developerRepository.findTop5ByRepoNameOrderByContributionsDesc(repoName);
     }
 
-    public List<Developer> findAll() {
-        return developerRepository.findAll();
+    public List<Developer> getAll(String repoName) {
+        return developerRepository.findAllByRepoNameOrderByContributionsDesc(repoName);
     }
 }
