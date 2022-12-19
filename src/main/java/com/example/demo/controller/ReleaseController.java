@@ -15,9 +15,14 @@ public class ReleaseController {
     public ReleaseController(ReleaseService releaseService) {
         this.releaseService = releaseService;
     }
-    
+
     @GetMapping("/all")
     public List<Release> getByRepoName(@RequestParam String repoName) {
         return releaseService.getByRepoName(repoName);
+    }
+
+    @GetMapping("/intervals")
+    public List<Integer> getDaysBetweenReleases(@RequestParam String repoName) {
+        return releaseService.getDaysBetweenReleases(repoName);
     }
 }

@@ -220,7 +220,7 @@ public class GithubRestfulUtil {
                     versionList.add(tag);
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
                     Date publishDate = format.parse((String) obj.get("published_at"));
-                    SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                     releaseTimeList.add(format2.format(publishDate));
                 }
             } catch (IOException | ParseException e) {

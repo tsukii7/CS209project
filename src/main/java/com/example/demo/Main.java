@@ -11,10 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 public class Main {
@@ -98,29 +95,33 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        ArrayList<String> descriptionList = new ArrayList<>();
-        getIssuesByRepo(descriptionList, "openai/gym");
-        BufferedWriter bw1 = new BufferedWriter(new FileWriter("D:\\Program\\Idea\\CS209project\\src\\main\\resources\\openai_description.txt"));
-        descriptionList.forEach(s -> {
-            try {
-                bw1.write(s);
-                bw1.write("\n");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        bw1.close();
-        descriptionList.clear();
-        getIssuesByRepo(descriptionList, "babysor/MockingBird");
-        BufferedWriter bw2 = new BufferedWriter(new FileWriter("D:\\Program\\Idea\\CS209project\\src\\main\\resources\\babysor_description.txt"));
-        descriptionList.forEach(s -> {
-            try {
-                bw2.write(s);
-                bw2.write("\n");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        bw2.close();
+        Date d = new Date();
+//        ArrayList<String> descriptionList = new ArrayList<>();
+//        getIssuesByRepo(descriptionList, "openai/gym");
+//        BufferedWriter bw1 = new BufferedWriter(new FileWriter("D:\\Program\\Idea\\CS209project\\src\\main\\resources\\openai_description.txt"));
+//        descriptionList.forEach(s -> {
+//            try {
+//                bw1.write(s);
+//                bw1.write("\n");
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
+//        bw1.close();
+//        descriptionList.clear();
+//        getIssuesByRepo(descriptionList, "babysor/MockingBird");
+//        BufferedWriter bw2 = new BufferedWriter(new FileWriter("D:\\Program\\Idea\\CS209project\\src\\main\\resources\\babysor_description.txt"));
+//        descriptionList.forEach(s -> {
+//            try {
+//                bw2.write(s);
+//                bw2.write("\n");
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
+//        bw2.close();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(d);
+        System.out.println(calendar.get(Calendar.HOUR_OF_DAY));
     }
 }
