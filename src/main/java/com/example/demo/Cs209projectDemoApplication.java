@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.service.CommitService;
-import com.example.demo.service.DeveloperService;
-import com.example.demo.service.IssueService;
-import com.example.demo.service.ReleaseService;
+import com.example.demo.service.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,16 +15,18 @@ public class Cs209projectDemoApplication {
 
     @Bean
     public CommandLineRunner commandLineRunner(
-            DeveloperService developerService, 
+            DeveloperService developerService,
             IssueService issueService,
             CommitService commitService,
-            ReleaseService releaseService
+            ReleaseService releaseService,
+            WordService wordService
     ) {
         return args -> {
-            developerService.addDevelopers();
+//            developerService.addDevelopers();
+//            commitService.addCommits();
+//            releaseService.addReleases();
 //            issueService.addIssues();
-            commitService.addCommits();
-            releaseService.addReleases();
+//            wordService.addWords();
         };
     }
 }

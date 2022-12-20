@@ -15,18 +15,30 @@ public class Issue {
     private Long id;
     private String repoName;
     private String state;
-    private long duration;
-    private String title;
-    private String description;
+    private Long duration;
 
     public Issue() {
     }
 
-    public Issue(String repoName,String state, long duration, String title, String description) {
+    public Issue(String repoName,String state, long duration) {
         this.repoName = repoName;
         this.state = state;
         this.duration = duration;
-        this.title = title;
-        this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getRepoName() {
+        return repoName;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public long getDuration() {
+        return duration;
     }
 }

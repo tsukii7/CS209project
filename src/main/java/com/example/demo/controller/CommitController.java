@@ -1,9 +1,15 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.CommitService;
+import com.kennycason.kumo.WordFrequency;
+import com.kennycason.kumo.nlp.FrequencyAnalyzer;
+import com.kennycason.kumo.nlp.tokenizers.ChineseWordTokenizer;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @CrossOrigin
