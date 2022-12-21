@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/releases")
+@RequestMapping("/api/words")
 public class WordController {
     private final WordService wordService;
 
@@ -16,7 +16,7 @@ public class WordController {
         this.wordService = wordService;
     }
 
-    @GetMapping("api/words")
+    @GetMapping("/frequency")
     public List<Word> getWords(@RequestParam String repoName) {
         return wordService.getWords(repoName);
     }

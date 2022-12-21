@@ -44,7 +44,7 @@ public class TitleDescriptionWriter {
                     if (obj.get("body").toString().equals("null")) {
                         continue;
                     }
-                    writer.println((String)obj.get("title"));
+                    writer.println((String) obj.get("title"));
                     StringBuilder description = new StringBuilder((String) obj.get("body"));
                     String comments_url = (String) obj.get("comments_url");
                     String comments = getStringFromURL(new URL(comments_url + "?per_page=100"));
@@ -60,12 +60,12 @@ public class TitleDescriptionWriter {
                     StringBuilder text = new StringBuilder();
                     for (int j = 0; j < descriptionArray1.length; j += 2) {
                         String[] descriptionArray2 = descriptionArray1[j].split("``");
-                        for (int k = 0; k < descriptionArray2.length; k+=2) {
+                        for (int k = 0; k < descriptionArray2.length; k += 2) {
                             String[] descriptionArray3 = descriptionArray2[k].split("`");
-                            for (int l = 0; l < descriptionArray3.length; l+=2) {
+                            for (int l = 0; l < descriptionArray3.length; l += 2) {
                                 Arrays.stream(descriptionArray3[l].split(" "))
-                                        .filter(x -> !x.contains("](")&&!x.startsWith("http"))
-                                        .forEach(x->text.append(x.replace("\r","").replace("\n","").trim()).append(" "));
+                                        .filter(x -> !x.contains("](") && !x.startsWith("http"))
+                                        .forEach(x -> text.append(x.replace("\r", "").replace("\n", "").trim()).append(" "));
                             }
                         }
                     }
@@ -79,16 +79,20 @@ public class TitleDescriptionWriter {
         writer.close();
     }
 
-    public static void main(String[] args) throws IOException {
-        PrintWriter writer1 = new PrintWriter(new BufferedWriter(new FileWriter("D:\\Program\\Idea\\CS209project\\src\\main\\resources\\test_openai.txt", false)));
-        System.out.println("开始扒openai");
-        writeDescription("openai/gym", writer1);
-        System.out.println("爬取openai完毕");
+    public static void writeWords() {
+        try {
+            PrintWriter writer1 = new PrintWriter(new BufferedWriter(new FileWriter("D:\\Program\\Idea\\CS209project\\src\\main\\resources\\test_openai.txt", false)));
+            System.out.println("开始扒openai");
+            writeDescription("openai/gym", writer1);
+            System.out.println("爬取openai完毕");
 
 
-        PrintWriter writer2 = new PrintWriter(new BufferedWriter(new FileWriter("D:\\Program\\Idea\\CS209project\\src\\main\\resources\\test_babysor.txt", false)));
-        System.out.println("开始扒babysor");
-        writeDescription("babysor/MockingBird", writer2);
-        System.out.println("爬取babysor完毕");
+            PrintWriter writer2 = new PrintWriter(new BufferedWriter(new FileWriter("D:\\Program\\Idea\\CS209project\\src\\main\\resources\\test_babysor.txt", false)));
+            System.out.println("开始扒babysor");
+            writeDescription("babysor/MockingBird", writer2);
+            System.out.println("爬取babysor完毕");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

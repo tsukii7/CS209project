@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.service.*;
+import com.example.demo.util.TitleDescriptionWriter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +27,7 @@ public class Cs209projectDemoApplication {
 //            commitService.addCommits();
 //            releaseService.addReleases();
 //            issueService.addIssues();
+////            TitleDescriptionWriter.writeWords();
 //            wordService.addWords();
         };
     }
