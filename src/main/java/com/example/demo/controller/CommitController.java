@@ -15,14 +15,14 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/commits")
 public class CommitController {
-    private final CommitService commitService;
+  private final CommitService commitService;
 
-    public CommitController(CommitService commitService) {
-        this.commitService = commitService;
-    }
+  public CommitController(CommitService commitService) {
+    this.commitService = commitService;
+  }
 
-    @GetMapping("/distributions")
-    public HashMap<String, int[]> getDistributions(@RequestParam String repoName) {
-        return commitService.getDistributions(repoName);
-    }
+  @GetMapping("/distributions")
+  public HashMap<String, int[]> getDistributions(@RequestParam String repoName) {
+    return commitService.getDistributions(repoName);
+  }
 }

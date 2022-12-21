@@ -10,26 +10,26 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/developers")
 public class DeveloperController {
-    private final DeveloperService developerService;
+  private final DeveloperService developerService;
 
-    public DeveloperController(DeveloperService developerService) {
-        this.developerService = developerService;
-    }
+  public DeveloperController(DeveloperService developerService) {
+    this.developerService = developerService;
+  }
 
-    @GetMapping("/count")
-    public long count(@RequestParam String repoName){
-        return developerService.countByRepoName(repoName);
-    }
-    
-    @GetMapping("/top")
-    public List<Developer> getTop5(@RequestParam String repoName){
-        return developerService.getTop5(repoName);
-    }
-    
-    @GetMapping("/all")
-    public List<Developer> getAll(@RequestParam String repoName){
-        return developerService.getAll(repoName);
-    }
+  @GetMapping("/count")
+  public long count(@RequestParam String repoName) {
+    return developerService.countByRepoName(repoName);
+  }
+
+  @GetMapping("/top")
+  public List<Developer> getTop5(@RequestParam String repoName) {
+    return developerService.getTop5(repoName);
+  }
+
+  @GetMapping("/all")
+  public List<Developer> getAll(@RequestParam String repoName) {
+    return developerService.getAll(repoName);
+  }
 
 
 }

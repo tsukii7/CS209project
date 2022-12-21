@@ -8,31 +8,31 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class Release {
-    @Id
-    @GeneratedValue
-    private Long id;
-    private String repoName;
-    private String version;
-    private String releaseTime;
+  @Id
+  @GeneratedValue
+  private Long id;
+  private String repoName;
+  private String version;
+  private String releaseTime;
 
-    public Release() {
-    }
+  public Release() {
+  }
 
-    public Release(String repoName,String version, String releaseTime) {
-        this.repoName = repoName;
-        this.version = version;
-        this.releaseTime = releaseTime;
-    }
+  public Release(String repoName, String version, String releaseTime) {
+    this.repoName = repoName;
+    this.version = version;
+    this.releaseTime = releaseTime;
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public String getVersion() {
-        return version;
-    }
+  public String getVersion() {
+    return version;
+  }
 
-    public String getReleaseTime() {
-        return releaseTime;
-    }
+  public String getReleaseTime() {
+    return releaseTime;
+  }
 }

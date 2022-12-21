@@ -10,14 +10,14 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping("/api/words")
 public class WordController {
-    private final WordService wordService;
+  private final WordService wordService;
 
-    public WordController(WordService wordService) {
-        this.wordService = wordService;
-    }
+  public WordController(WordService wordService) {
+    this.wordService = wordService;
+  }
 
-    @GetMapping("/frequency")
-    public List<Word> getWords(@RequestParam String repoName) {
-        return wordService.getWords(repoName);
-    }
+  @GetMapping("/frequency")
+  public List<Word> getWords(@RequestParam String repoName) {
+    return wordService.getWords(repoName);
+  }
 }
